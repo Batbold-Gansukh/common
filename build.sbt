@@ -49,6 +49,8 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "3.7.1" % "test",
   "org.specs2" %% "specs2-junit" % "3.7.1" % "test",
   "junit" % "junit" % "4.12" % "test",
+  "org.postgresql" % "postgresql" % "9.4.1208",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.github.tminglei" %% "slick-pg" % "0.12.0",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.12.0"
