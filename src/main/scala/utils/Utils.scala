@@ -50,4 +50,8 @@ object Utils {
       Xor.left(e.getCause)
   }
 
+  def pp(str: String, color: String = Console.MAGENTA): Unit = {
+    println(color + str + Console.RESET)
+  }
+
 }
