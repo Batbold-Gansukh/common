@@ -43,11 +43,10 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "com.chuusai" %% "shapeless" % "2.3.0" withSources(),
-  "org.typelevel" %% "cats" % "0.4.1" withSources(),
-  "com.typesafe.play" %% "play-json" % "2.5.0",
-  "org.specs2" %% "specs2-core" % "3.7.1" % "test",
-  "org.specs2" %% "specs2-junit" % "3.7.1" % "test",
+  "org.typelevel" %% "cats" % "0.5.0" withSources(),
+  "com.typesafe.play" %% "play-json" % "2.5.3",
+  "org.specs2" %% "specs2-core" % "3.8" % "test",
+  "org.specs2" %% "specs2-junit" % "3.8" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "9.4.1208",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
