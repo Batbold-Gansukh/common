@@ -24,6 +24,15 @@ object Utils {
     }
   }
 
+  def parseLong(string: String): Throwable Xor Long = {
+    try {
+      Xor.right(string.toLong)
+    } catch {
+      case e: Exception ⇒
+        Xor.Left(e.getCause)
+    }
+  }
+
   def decodeUrlToJson(string: String): Throwable Xor JsValue = {
     try {
       Xor.right(Json.parse(Base64.getUrlDecoder.decode(string.getBytes("UTF-8"))))
