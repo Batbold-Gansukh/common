@@ -51,8 +51,8 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.4.1208",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
   "com.typesafe.slick" %% "slick" % "3.1.1",
-  "com.github.tminglei" %% "slick-pg" % "0.12.0",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.12.0"
+  "com.github.tminglei" %% "slick-pg" % "0.13.0",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.13.0"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
