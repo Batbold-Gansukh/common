@@ -38,4 +38,13 @@ object CommonJsonImplicits {
     }
   }
 
+  implicit class JsResultToXor[T](jsResult: JsResult[T]) {
+    def toXor: Throwable Xor T = jsResult match {
+      case JsSuccess(t, _) ⇒ Xor.Right(t)
+      case jsError: JsError ⇒ Xor.Left(new Throwable(
+        jsError.errors.map(x ⇒ x._2.map(_.message).mkString("\n")).mkString("\n")
+      ))
+    }
+  }
+
 }
