@@ -59,8 +59,22 @@ object Utils {
       Xor.left(e.getCause)
   }
 
-  def pp(str: String, color: String = Console.MAGENTA): Unit = {
-    println(color + str + Console.RESET)
+  def pp(toString: Any, color: String = Console.MAGENTA): Unit = {
+    println(color + toString.toString + Console.RESET)
+  }
+
+  def ppEach(toStrings: (Any, String)*): Unit = {
+    toStrings.foreach {
+      case (toString, color) ⇒ print(color + toString.toString + Console.RESET)
+    }
+    println(Console.RESET)
+  }
+
+  def ppAll(toStrings: Any*)(color: String): Unit = {
+    toStrings.foreach { toString ⇒
+      print(color + toString.toString)
+    }
+    println(Console.RESET)
   }
 
 }
