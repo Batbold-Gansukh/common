@@ -23,6 +23,19 @@ class HelpersSpec extends Specification {
       }
       success
     }
+
+    "XLT" in {
+      import utils.Helpers.XLT
+      val string = "string"
+      val xlt = XLT(string)
+      xlt.isLeft mustEqual true
+      xlt.isInstanceOf[Xor.Left[Throwable]] mustEqual true
+      xlt.leftMap { throwable ⇒
+        throwable.getMessage mustEqual string
+      }
+      success
+    }
+
     "FXT" in {
       import utils.Helpers.FXT
       val string = "string"
@@ -34,6 +47,16 @@ class HelpersSpec extends Specification {
       }
       success
     }
+
+    "XT" in {
+      import utils.Helpers.XT
+      val string = "string"
+      val xt = XT[Unit](string)
+      xt.isLeft mustEqual true
+      xt.isInstanceOf[Xor[Throwable, Unit]] mustEqual true
+      success
+    }
+
     "FXL" in {
       import utils.Helpers.FXL
       val value = Some(1)
@@ -45,6 +68,16 @@ class HelpersSpec extends Specification {
       }
       success
     }
+
+    "XL" in {
+      import utils.Helpers.XL
+      val value = Some(1)
+      val xl = XL[Option[Int]](value)
+      xl.isLeft mustEqual true
+      xl.isInstanceOf[Xor.Left[Option[Int]]] mustEqual true
+      success
+    }
+
     "FX" in {
       import utils.Helpers.FX
       val value = Some(1)
@@ -53,6 +86,15 @@ class HelpersSpec extends Specification {
         x.isLeft mustEqual true
         x.isInstanceOf[Option[Int] Xor Unit] mustEqual true
       }
+      success
+    }
+
+    "X" in {
+      import utils.Helpers.X
+      val value = Some(1)
+      val x = X[Option[Int], Unit](value)
+      x.isLeft mustEqual true
+      x.isInstanceOf[Option[Int] Xor Unit] mustEqual true
       success
     }
   }
