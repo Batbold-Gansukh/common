@@ -12,7 +12,7 @@ import cats.data.Xor
   */
 object CommonJsonImplicits {
 
-  implicit val sqlTimestampFormat = new Format[Timestamp] {
+  implicit val sqlTimestampLongFormat = new Format[Timestamp] {
 
     override def reads(json: JsValue): JsResult[Timestamp] = Json.fromJson[DateTime](json).map { x ⇒
       new Timestamp(x.getMillis)
@@ -48,7 +48,7 @@ object CommonJsonImplicits {
   }
 
   implicit class JsResultToXorWithError[T](jsResult: JsResult[T]) {
-    def toXorWithError(error: String): String Xor T = jsResult match {
+    def toXorWithError[E](error: E): E Xor T = jsResult match {
       case JsSuccess(t, _) ⇒ Xor.Right(t)
       case _: JsError ⇒ Xor.Left(error)
     }

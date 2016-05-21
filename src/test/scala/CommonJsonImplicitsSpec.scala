@@ -38,6 +38,7 @@ class CommonJsonImplicitsSpec extends Specification {
     "JsError" in {
       JsError("error").toXor must beEqualTo(Xor.Left("error"))
       JsError("error").toXorWithError("anotherError") must beEqualTo(Xor.Left("anotherError"))
+      JsError("error").toXorWithError(Some("anotherError")) must beEqualTo(Xor.Left(Some("anotherError")))
     }
   }
 
