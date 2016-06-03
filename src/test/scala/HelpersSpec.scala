@@ -2,6 +2,7 @@ import cats.data.Xor
 import org.specs2.mutable.Specification
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 /**
   * Created by batbold on 5/20/16.
@@ -85,6 +86,22 @@ class HelpersSpec extends Specification {
       fx.foreach { x ⇒
         x.isLeft mustEqual true
         x.isInstanceOf[Option[Int] Xor Unit] mustEqual true
+      }
+      success
+    }
+
+    "FS" in {
+      import utils.Helpers.FS
+      val value = Some(1)
+      val fs1 = FS(value)
+      fs1.foreach { v ⇒
+        v mustEqual value
+      }
+      val fs2 = FS {
+        value
+      }
+      fs2.foreach { v ⇒
+        v mustEqual value
       }
       success
     }

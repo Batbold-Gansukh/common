@@ -25,4 +25,6 @@ object Helpers {
 
   def X[L, R](value: L): L Xor R = Xor.left[L, R](value)
 
+  def FS[V](value: V): Future[V] = Future.successful(value)
+
 }
