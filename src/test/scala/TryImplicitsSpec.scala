@@ -3,13 +3,10 @@
   */
 
 import cats.data.Xor
-import org.junit.runner._
 import org.specs2.mutable._
-import org.specs2.runner._
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class TryImplicitsSpec extends Specification {
 
   import helpers.utiltry.implicits._

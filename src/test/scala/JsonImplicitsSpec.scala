@@ -3,14 +3,11 @@
   */
 
 import cats.data.Xor
-import org.junit.runner._
 import org.specs2.mutable._
-import org.specs2.runner._
 import play.api.data.validation.ValidationError
 import play.api.libs.json.{JsError, JsSuccess, Json}
 
-@RunWith(classOf[JUnitRunner])
-class CommonJsonImplicitsSpec extends Specification {
+class JsonImplicitsSpec extends Specification {
 
   import helpers.json.implicits._
 
