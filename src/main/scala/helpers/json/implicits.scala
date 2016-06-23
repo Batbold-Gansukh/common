@@ -1,16 +1,16 @@
-package utils
+package helpers.json
 
 import java.sql.Timestamp
 
+import cats.data.Xor
 import org.joda.time.DateTime
 import play.api.data.validation.ValidationError
-import play.api.libs.json._
-import cats.data.Xor
+import play.api.libs.json.{JsError, JsSuccess, Reads, _}
 
 /**
-  * Created by batbold on 12/2/15.
+  * Created by batbold on 6/24/16.
   */
-object CommonJsonImplicits {
+object implicits {
 
   implicit val sqlTimestampLongFormat = new Format[Timestamp] {
 

@@ -1,15 +1,15 @@
-package utils
+package helpers.slick.cat
 
 import slick.dbio.DBIO
 
 import scala.concurrent.ExecutionContext
 
 /**
-  * Created by batbold on 2/5/16.
+  * Created by batbold on 6/24/16.
   */
-object SlickCatImplicits {
+object implicits {
 
-  import TryImplicits._
+  import helpers.utiltry.implicits._
 
   implicit class DBIOInstance[+T](dbio: DBIO[T]) {
     def asXor(implicit ec:ExecutionContext) = dbio.asTry.map(_.toXor)

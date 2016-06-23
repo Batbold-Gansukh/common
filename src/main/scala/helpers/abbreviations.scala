@@ -1,13 +1,16 @@
-package utils
+package helpers
 
 import cats.data.Xor
+import monix.eval.Task
 
 import scala.concurrent.Future
 
 /**
   * Created by batbold on 5/20/16.
   */
-object Helpers {
+object abbreviations {
+
+  // For scala future
 
   def FXLT(error: String): Future[Xor.Left[Throwable]] = Future.successful(Xor.Left(new Throwable(error)))
 
@@ -26,5 +29,15 @@ object Helpers {
   def X[L, R](value: L): L Xor R = Xor.left[L, R](value)
 
   def FS[V](value: V): Future[V] = Future.successful(value)
+
+  // For monix task
+
+  def TXLT(error: String): Task[Xor.Left[Throwable]] = Task.now(Xor.Left(new Throwable(error)))
+
+  def TXT[R](error: String): Task[Throwable Xor R] = Task.now(Xor.left[Throwable, R](new Throwable(error)))
+
+  def TXL[T](value: T): Task[Xor.Left[T]] = Task.now(Xor.Left(value))
+
+  def TX[L, R](value: L): Task[L Xor R] = Task.now(Xor.left[L, R](value))
 
 }

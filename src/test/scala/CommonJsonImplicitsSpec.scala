@@ -2,17 +2,17 @@
   * Created by batbold on 1/30/16.
   */
 
+import cats.data.Xor
 import org.junit.runner._
 import org.specs2.mutable._
 import org.specs2.runner._
 import play.api.data.validation.ValidationError
 import play.api.libs.json.{JsError, JsSuccess, Json}
-import cats.data.Xor
 
 @RunWith(classOf[JUnitRunner])
 class CommonJsonImplicitsSpec extends Specification {
 
-  import utils.CommonJsonImplicits._
+  import helpers.json.implicits._
 
   "JSLookupResult.toXor" should {
     val testJson = Json.parse(

@@ -1,14 +1,13 @@
-package utils
-
-/**
-  * Created by batbold on 2/5/16.
-  */
+package helpers.utiltry
 
 import cats.data.Xor
 
 import scala.util.Try
 
-object TryImplicits {
+/**
+  * Created by batbold on 6/24/16.
+  */
+object implicits {
 
   implicit class TryInstance[T](tr: Try[T]) {
     def toXor: Throwable Xor T = Xor.fromTry(tr)

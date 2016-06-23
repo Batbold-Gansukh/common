@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import java.text.SimpleDateFormat
 import java.util.Base64
@@ -11,7 +11,7 @@ import play.api.libs.json._
 /**
   * Created by batbold on 11/1/15.
   */
-object Utils {
+object common {
 
   def test = "From common.Utils"
 
