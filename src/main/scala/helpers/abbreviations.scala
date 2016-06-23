@@ -40,4 +40,6 @@ object abbreviations {
 
   def TX[L, R](value: L): Task[L Xor R] = Task.now(Xor.left[L, R](value))
 
+  def FT[T](future: ⇒ Future[T]): Task[T] = Task.defer(Task.fromFuture(future))
+
 }

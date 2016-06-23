@@ -1,15 +1,18 @@
+import java.security.SecureRandom
+
 import cats.data.Xor
+import helpers.common._
 import monix.execution.Scheduler.Implicits._
 import org.specs2.mutable.Specification
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 
 
 /**
   * Created by batbold on 5/20/16.
   */
-class HelpersSpec extends Specification {
+class AbbreviationSpec extends Specification {
 
   "Helpers" should {
     "FXLT" in {
@@ -143,6 +146,26 @@ class HelpersSpec extends Specification {
       value.isLeft mustEqual true
       value.isInstanceOf[Xor[Int, String]] mustEqual true
       value mustEqual Xor.Left(1)
+    }
+
+    "FT" in {
+      import helpers.abbreviations.FT
+      val random = SecureRandom.getInstanceStrong
+      var state = 1
+
+      val task = FT(Future.apply({
+        state += 1
+        pp(s"from future:${random.nextInt()} state:$state", Console.YELLOW)
+        state
+      }))
+
+      pp("first wait")
+      Await.result(task.runAsync, 2.seconds)
+      state mustEqual 2
+
+      pp("second wait")
+      Await.result(task.runAsync, 2.seconds)
+      state mustEqual 3
     }
   }
 }
