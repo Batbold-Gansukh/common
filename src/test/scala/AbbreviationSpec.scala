@@ -167,5 +167,12 @@ class AbbreviationSpec extends Specification {
       Await.result(task.runAsync, 2.seconds)
       state mustEqual 3
     }
+
+    "TT" in {
+      import helpers.abbreviations.TT
+      val str = "string"
+      val res = Await.result(TT(str).materialize.runAsync, 2.seconds)
+      res.isFailure mustEqual true
+    }
   }
 }

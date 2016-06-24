@@ -42,4 +42,6 @@ object abbreviations {
 
   def FT[T](future: ⇒ Future[T]): Task[T] = Task.defer(Task.fromFuture(future))
 
+  def TT[T](str: String): Task[T] = Task.raiseError[T](new Throwable(str))
+
 }
