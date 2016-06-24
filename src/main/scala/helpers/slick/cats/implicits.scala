@@ -1,4 +1,4 @@
-package helpers.slick.cat
+package helpers.slick.cats
 
 import slick.dbio.DBIO
 
