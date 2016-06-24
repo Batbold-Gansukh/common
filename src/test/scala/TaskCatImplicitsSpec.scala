@@ -17,7 +17,7 @@ class TaskCatImplicitsSpec extends Specification {
     val string = "string"
     implicit val timeout = 4.seconds
     "throwable xor" in {
-      import helpers.task.cats.implicits.LeftThrowableXorToTask
+      import helpers.task.implicits.LeftThrowableXorToTask
       val right = Xor.right[Throwable, Int](value).task
       Await.result(right.runAsync, timeout) mustEqual value
       val throwable = new Throwable(string)
@@ -30,7 +30,7 @@ class TaskCatImplicitsSpec extends Specification {
       }
     }
     "string xor" in {
-      import helpers.task.cats.implicits.LeftStringXorToTask
+      import helpers.task.implicits.LeftStringXorToTask
       val right = Xor.right[String, Int](value).task
       Await.result(right.runAsync, timeout) mustEqual value
       val left = Xor.left[String, Int](string).task
@@ -42,12 +42,12 @@ class TaskCatImplicitsSpec extends Specification {
       }
     }
     "Xor.Right any" in {
-      import helpers.task.cats.implicits._
+      import helpers.task.implicits._
       val right = Xor.Right(value).task
       Await.result(right.runAsync, timeout) mustEqual value
     }
     "Xor.Left[String]" in {
-      import helpers.task.cats.implicits._
+      import helpers.task.implicits._
       val left = Xor.Left(string).task
       val res = Await.result(left.materialize.runAsync, timeout)
       res.isFailure mustEqual true
@@ -57,7 +57,7 @@ class TaskCatImplicitsSpec extends Specification {
       }
     }
     "Xor.Left[Throwable]" in {
-      import helpers.task.cats.implicits._
+      import helpers.task.implicits._
       val throwable = new Throwable(string)
       val left = Xor.Left(throwable).task
       val res = Await.result(left.materialize.runAsync, timeout)
