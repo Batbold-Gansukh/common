@@ -80,6 +80,14 @@ class AbbreviationSpec extends Specification {
       xl.isInstanceOf[Xor.Left[Option[Int]]] mustEqual true
     }
 
+    "XR" in {
+      import helpers.abbreviations.XR
+      val value = Some(1)
+      val xl = XR[Option[Int]](value)
+      xl.isRight mustEqual true
+      xl.isInstanceOf[Xor.Right[Option[Int]]] mustEqual true
+    }
+
     "FX" in {
       import helpers.abbreviations.FX
       val value = Some(1)

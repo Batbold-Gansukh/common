@@ -24,6 +24,8 @@ object abbreviations {
 
   def XL[T](value: T): Xor.Left[T] = Xor.Left(value)
 
+  def XR[R](value: R): Xor.Right[R] = Xor.Right(value)
+
   def FX[L, R](value: L): Future[L Xor R] = Future.successful(Xor.left[L, R](value))
 
   def X[L, R](value: L): L Xor R = Xor.left[L, R](value)
