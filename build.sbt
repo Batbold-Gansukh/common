@@ -43,17 +43,17 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "2.0-RC7",
-  "org.typelevel" %% "cats" % "0.6.0" withSources(),
-  "com.typesafe.play" %% "play-json" % "2.5.3",
-  "org.specs2" %% "specs2-core" % "3.8.3" % "test",
-  "org.specs2" %% "specs2-junit" % "3.8.3" % "test",
+  "io.monix" %% "monix" % "2.0-RC8",
+  "org.typelevel" %% "cats" % "0.6.1" withSources(),
+  "com.typesafe.play" %% "play-json" % "2.5.4",
+  "org.specs2" %% "specs2-core" % "3.8.4" % "test",
+  "org.specs2" %% "specs2-junit" % "3.8.4" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "9.4.1208",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
   "com.typesafe.slick" %% "slick" % "3.1.1",
-  "com.github.tminglei" %% "slick-pg" % "0.14.1",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.14.1"
+  "com.github.tminglei" %% "slick-pg" % "0.14.2",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.14.2"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
