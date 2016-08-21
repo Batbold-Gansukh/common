@@ -43,8 +43,8 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "2.0-RC10",
-  "org.typelevel" %% "cats" % "0.6.1" withSources(),
+  "io.monix" %% "monix" % "2.0-RC11",
+  "org.typelevel" %% "cats" % "0.7.0" withSources(),
   "com.typesafe.play" %% "play-json" % "2.5.4",
   "org.specs2" %% "specs2-core" % "3.8.4" % "test",
   "org.specs2" %% "specs2-junit" % "3.8.4" % "test",
