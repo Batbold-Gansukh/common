@@ -7,6 +7,11 @@ import scala.concurrent.duration._
 import helpers.task.implicits._
 import monix.execution.Scheduler.Implicits._
 import helpers.common.pp
+import monix.execution.Scheduler
+import play.api.Logger
+import play.api.mvc.Result
+
+import scala.concurrent.duration._
 
 /**
   * Created by batbold on 6/24/16.
@@ -14,6 +19,47 @@ import helpers.common.pp
 class TaskImplicitsSpec extends Specification {
 
   "Task" should {
+    {
+      import play.api.mvc.Results._
+      import helpers.task.implicits.TaskToResult
+      implicit val sch = Scheduler
+      implicit val implicitLogger = Logger
+
+      "task to result when succeed" in {
+        val task = Task.now(Ok)
+
+        val result = Await.result(task.result(), 5.seconds)
+        result mustEqual Ok
+        result mustNotEqual Ok("Error")
+      }
+      "task to result when throw" in {
+        val msg = "Throwable"
+        val task = Task.raiseError[Result](new Throwable(msg))
+
+        val result = Await.result(task.result(), 5.seconds)
+        result mustEqual InternalServerError
+        result mustNotEqual InternalServerError(msg)
+      }
+
+      "task to result with info when succeed" in {
+        val msg = "ok"
+        val task = Task.now(Ok(msg))
+
+        val result = Await.result(task.resultWithInfo(), 5.seconds)
+        result mustEqual Ok(msg)
+        result mustNotEqual Ok
+      }
+
+      "task to result with info when throw" in {
+        val msg = "Throwable"
+        val task = Task.raiseError[Result](new Throwable(msg))
+
+        val result = Await.result(task.resultWithInfo(), 5.seconds)
+        result mustEqual InternalServerError(msg)
+        result mustNotEqual InternalServerError
+      }
+    }
+
     "xor when throw" in {
       val shouldThrow = Task {
         if (true) throw new Throwable("from Task")

@@ -2,11 +2,33 @@ package helpers.task
 
 import cats.data.Xor
 import monix.eval.Task
+import monix.execution.Scheduler
+import play.api.mvc.Result
+import play.api.Logger
+import play.api.mvc.Results._
+
+import scala.util.{Failure, Success}
 
 /**
   * Created by batbold on 6/24/16.
   */
 object implicits {
+
+  implicit class TaskToResult(task: Task[Result]) {
+    def resultWithInfo()(implicit sch: Scheduler, logger: Logger.type) = task.materialize.runAsync map {
+      case Success(result) ⇒ result
+      case Failure(reason) ⇒
+        logger.error(reason.getMessage, reason)
+        InternalServerError(reason.getMessage)
+    }
+
+    def result()(implicit sch: Scheduler, logger: Logger.type) = task.materialize.runAsync map {
+      case Success(result) ⇒ result
+      case Failure(reason) ⇒
+        logger.error(reason.getMessage, reason)
+        InternalServerError
+    }
+  }
 
   implicit class TaskToXor[T](task: Task[T]) {
     def xor = task.materialize.map(cats.data.Xor.fromTry)

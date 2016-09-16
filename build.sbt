@@ -24,6 +24,9 @@ version := "0.0.0"
 scalaVersion := "2.11.8"
 shellPrompt := modulePrompt
 
+//lazy val root = (project in file(".")).enablePlugins(PlayScala)
+//enablePlugins(PlayScala)
+
 scalacOptions ++= Seq(
   "-deprecation", // Emit warning and location for usages of deprecated APIs.
   "-feature", // Emit warning and location for usages of features that should be imported explicitly.
@@ -53,9 +56,12 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.github.tminglei" %% "slick-pg" % "0.14.3",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.14.3"
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.14.3",
+  "com.typesafe.play" %% "play" % "2.5.8"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/maven-releases/"
