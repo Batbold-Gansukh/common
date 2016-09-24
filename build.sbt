@@ -16,7 +16,7 @@ val modulePrompt = { state: State =>
 
 }
 
-val projectName = "common-utils"
+val projectName = "common"
 name := projectName
 moduleName := projectName
 organization := "bb"
@@ -57,7 +57,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.github.tminglei" %% "slick-pg" % "0.14.3",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.14.3",
-  "com.typesafe.play" %% "play" % "2.5.8"
+  "com.typesafe.play" %% "play" % "2.5.8",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
