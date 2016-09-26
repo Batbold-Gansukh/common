@@ -15,19 +15,21 @@ import scala.util.{Failure, Success}
 object implicits {
 
   implicit class TaskToResult(task: Task[Result]) {
-    def resultWithInfo()(implicit sch: Scheduler, logger: Logger.type) = task.materialize.runAsync map {
-      case Success(result) ⇒ result
-      case Failure(reason) ⇒
-        logger.error(reason.getMessage, reason)
-        InternalServerError(reason.getMessage)
-    }
+    def resultWithInfo()(implicit sch: Scheduler, logger: com.typesafe.scalalogging.Logger) =
+      task.materialize.runAsync map {
+        case Success(result) ⇒ result
+        case Failure(reason) ⇒
+          logger.error(reason.getMessage, reason)
+          InternalServerError(reason.getMessage)
+      }
 
-    def result()(implicit sch: Scheduler, logger: Logger.type) = task.materialize.runAsync map {
-      case Success(result) ⇒ result
-      case Failure(reason) ⇒
-        logger.error(reason.getMessage, reason)
-        InternalServerError
-    }
+    def result()(implicit sch: Scheduler, logger: com.typesafe.scalalogging.Logger) =
+      task.materialize.runAsync map {
+        case Success(result) ⇒ result
+        case Failure(reason) ⇒
+          logger.error(reason.getMessage, reason)
+          InternalServerError
+      }
   }
 
   implicit class TaskToXor[T](task: Task[T]) {

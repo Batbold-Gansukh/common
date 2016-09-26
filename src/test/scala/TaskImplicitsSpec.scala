@@ -3,12 +3,11 @@ import monix.eval.Task
 import org.specs2.mutable._
 
 import scala.concurrent.Await
-import scala.concurrent.duration._
 import helpers.task.implicits._
 import monix.execution.Scheduler.Implicits._
 import helpers.common.pp
 import monix.execution.Scheduler
-import play.api.Logger
+import org.slf4j.LoggerFactory
 import play.api.mvc.Result
 
 import scala.concurrent.duration._
@@ -23,7 +22,7 @@ class TaskImplicitsSpec extends Specification {
       import play.api.mvc.Results._
       import helpers.task.implicits.TaskToResult
       implicit val sch = Scheduler
-      implicit val implicitLogger = Logger
+      implicit val implicitLogger = com.typesafe.scalalogging.Logger(LoggerFactory.getLogger("Task"))
 
       "task to result when succeed" in {
         val task = Task.now(Ok)
