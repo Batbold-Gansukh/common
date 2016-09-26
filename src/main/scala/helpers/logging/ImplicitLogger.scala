@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
   */
 trait ImplicitLogger {
 
-  protected lazy val logger: com.typesafe.scalalogging.Logger =
+  protected implicit lazy val logger: com.typesafe.scalalogging.Logger =
     com.typesafe.scalalogging.Logger(LoggerFactory.getLogger(getClass))
 
 }

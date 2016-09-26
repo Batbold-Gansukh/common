@@ -4,7 +4,6 @@ import cats.data.Xor
 import monix.eval.Task
 import monix.execution.Scheduler
 import play.api.mvc.Result
-import play.api.Logger
 import play.api.mvc.Results._
 
 import scala.util.{Failure, Success}
@@ -14,7 +13,26 @@ import scala.util.{Failure, Success}
   */
 object implicits {
 
-  implicit class TaskToResult(task: Task[Result]) {
+  implicit class TaskToResultPlayLogger(task: Task[Result]) {
+    def resultWithInfo()(implicit sch: Scheduler, logger: play.api.Logger.type) =
+      task.materialize.runAsync map {
+        case Success(result) ⇒ result
+        case Failure(reason) ⇒
+          logger.error(reason.getMessage, reason)
+          InternalServerError(reason.getMessage)
+      }
+
+    def result()(implicit sch: Scheduler, logger: play.api.Logger.type) =
+      task.materialize.runAsync map {
+        case Success(result) ⇒ result
+        case Failure(reason) ⇒
+          logger.error(reason.getMessage, reason)
+          InternalServerError
+      }
+  }
+
+
+  implicit class TaskToResultScalaLogging(task: Task[Result]) {
     def resultWithInfo()(implicit sch: Scheduler, logger: com.typesafe.scalalogging.Logger) =
       task.materialize.runAsync map {
         case Success(result) ⇒ result

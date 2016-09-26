@@ -3,7 +3,6 @@ import monix.eval.Task
 import org.specs2.mutable._
 
 import scala.concurrent.Await
-import helpers.task.implicits._
 import monix.execution.Scheduler.Implicits._
 import helpers.common.pp
 import monix.execution.Scheduler
@@ -20,7 +19,48 @@ class TaskImplicitsSpec extends Specification {
   "Task" should {
     {
       import play.api.mvc.Results._
-      import helpers.task.implicits.TaskToResult
+      import helpers.task.implicits.TaskToResultPlayLogger
+      implicit val sch = Scheduler
+      implicit val implicitLogger = play.api.Logger
+
+      "task to result when succeed" in {
+        val task = Task.now(Ok)
+
+        val result = Await.result(task.result(), 5.seconds)
+        result mustEqual Ok
+        result mustNotEqual Ok("Error")
+      }
+      "task to result when throw" in {
+        val msg = "Throwable"
+        val task = Task.raiseError[Result](new Throwable(msg))
+
+        val result = Await.result(task.result(), 5.seconds)
+        result mustEqual InternalServerError
+        result mustNotEqual InternalServerError(msg)
+      }
+
+      "task to result with info when succeed" in {
+        val msg = "ok"
+        val task = Task.now(Ok(msg))
+
+        val result = Await.result(task.resultWithInfo(), 5.seconds)
+        result mustEqual Ok(msg)
+        result mustNotEqual Ok
+      }
+
+      "task to result with info when throw" in {
+        val msg = "Throwable"
+        val task = Task.raiseError[Result](new Throwable(msg))
+
+        val result = Await.result(task.resultWithInfo(), 5.seconds)
+        result mustEqual InternalServerError(msg)
+        result mustNotEqual InternalServerError
+      }
+    }
+
+    {
+      import play.api.mvc.Results._
+      import helpers.task.implicits.TaskToResultScalaLogging
       implicit val sch = Scheduler
       implicit val implicitLogger = com.typesafe.scalalogging.Logger(LoggerFactory.getLogger("Task"))
 
@@ -60,6 +100,7 @@ class TaskImplicitsSpec extends Specification {
     }
 
     "xor when throw" in {
+      import helpers.task.implicits.TaskToXor
       val shouldThrow = Task {
         if (true) throw new Throwable("from Task")
         else 1
@@ -69,6 +110,7 @@ class TaskImplicitsSpec extends Specification {
       res.isLeft mustEqual true
     }
     "xor when succeed" in {
+      import helpers.task.implicits.TaskToXor
       val shouldSucceed = Task {
         if (false) throw new Throwable("from task")
         else 1
@@ -79,6 +121,7 @@ class TaskImplicitsSpec extends Specification {
       res mustEqual Xor.Right(1)
     }
     "short circuit" in {
+      import helpers.task.implicits.TaskToXor
       var state = 0
       val t1 = Task {
         state += 1
