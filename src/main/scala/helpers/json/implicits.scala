@@ -12,7 +12,7 @@ import play.api.libs.json.{JsError, JsSuccess, Reads, _}
   */
 object implicits {
 
-  val dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  val dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
 
   implicit val jodaDateReads: Reads[DateTime] = Reads[DateTime](js =>
     js.validate[String].map[DateTime](dtString =>
@@ -30,7 +30,7 @@ object implicits {
       new Timestamp(x.getMillis)
     }
 
-    override def writes(o: Timestamp): JsValue = Json.toJson(new DateTime(o.getTime))
+    override def writes(o: Timestamp): JsValue = Json.toJson(o.getTime)
 
   }
 
