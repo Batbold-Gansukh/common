@@ -4,8 +4,7 @@
 
 import cats.data.Xor
 import org.specs2.mutable._
-import play.api.data.validation.ValidationError
-import play.api.libs.json.{JsError, JsSuccess, Json}
+import play.api.libs.json.{JsError, JsSuccess, Json, JsonValidationError}
 
 class JsonImplicitsSpec extends Specification {
 
@@ -17,13 +16,13 @@ class JsonImplicitsSpec extends Specification {
         |{"test":"test","int":123,"array":[11,22,33]}
       """.stripMargin)
     "correctly work" in {
-      (testJson \ "test").toXor[String] must beEqualTo(Xor.right[ValidationError, String]("test"))
-      (testJson \ "test").toXor[Int] must beAnInstanceOf[Xor.Left[ValidationError]]
-      (testJson \ "int").toXor[Int] must beEqualTo(Xor.right[ValidationError, Int](123))
-      (testJson \ "int").toXor[Long] must beEqualTo(Xor.right[ValidationError, Int](123))
-      (testJson \ "array").toXor[List[Int]] must beEqualTo(Xor.right[ValidationError, List[Int]](List(11, 22, 33)))
-      (testJson \ "array").toXor[List[String]] must beAnInstanceOf[Xor.Left[ValidationError]]
-      (testJson \ "array1").toXor[List[String]] must beAnInstanceOf[Xor.Left[ValidationError]]
+      (testJson \ "test").toXor[String] must beEqualTo(Xor.right[JsonValidationError, String]("test"))
+      (testJson \ "test").toXor[Int] must beAnInstanceOf[Xor.Left[JsonValidationError]]
+      (testJson \ "int").toXor[Int] must beEqualTo(Xor.right[JsonValidationError, Int](123))
+      (testJson \ "int").toXor[Long] must beEqualTo(Xor.right[JsonValidationError, Int](123))
+      (testJson \ "array").toXor[List[Int]] must beEqualTo(Xor.right[JsonValidationError, List[Int]](List(11, 22, 33)))
+      (testJson \ "array").toXor[List[String]] must beAnInstanceOf[Xor.Left[JsonValidationError]]
+      (testJson \ "array1").toXor[List[String]] must beAnInstanceOf[Xor.Left[JsonValidationError]]
     }
   }
 

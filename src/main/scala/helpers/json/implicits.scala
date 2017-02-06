@@ -4,13 +4,25 @@ import java.sql.Timestamp
 
 import cats.data.Xor
 import org.joda.time.DateTime
-import play.api.data.validation.ValidationError
+import org.joda.time.format.DateTimeFormat
 import play.api.libs.json.{JsError, JsSuccess, Reads, _}
 
 /**
   * Created by batbold on 6/24/16.
   */
 object implicits {
+
+  val dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+  implicit val jodaDateReads: Reads[DateTime] = Reads[DateTime](js =>
+    js.validate[String].map[DateTime](dtString =>
+      DateTime.parse(dtString, DateTimeFormat.forPattern(dateFormat))
+    )
+  )
+
+  implicit val jodaDateWrites: Writes[DateTime] = new Writes[DateTime] {
+    def writes(d: DateTime): JsValue = JsString(d.toString())
+  }
 
   implicit val sqlTimestampLongFormat = new Format[Timestamp] {
 
@@ -25,14 +37,14 @@ object implicits {
   implicit class JsValueToXor(jsLookupResult: JsLookupResult) {
     def toXor[T](
       implicit fjs: Reads[T]
-    ): ValidationError Xor T = {
+    ): JsonValidationError Xor T = {
       jsLookupResult.toEither match {
-        case Left(ve: ValidationError) => Xor.left(ve)
+        case Left(ve: JsonValidationError) => Xor.left(ve)
         case Right(value: JsValue) =>
           value.asOpt[T] match {
-            case Some(t) => Xor.right[ValidationError, T](t)
-            case None => Xor.left[ValidationError, T](
-              ValidationError(s"a value exists by name but unable to convert to T"))
+            case Some(t) => Xor.right[JsonValidationError, T](t)
+            case None => Xor.left[JsonValidationError, T](
+              JsonValidationError(s"a value exists by name but unable to convert to T"))
           }
       }
     }
