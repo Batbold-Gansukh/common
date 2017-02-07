@@ -5,6 +5,7 @@ import java.sql.Timestamp
 import cats.data.Xor
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.data.validation.ValidationError
 import play.api.libs.json.{JsError, JsSuccess, Reads, _}
 
 /**
@@ -37,14 +38,14 @@ object implicits {
   implicit class JsValueToXor(jsLookupResult: JsLookupResult) {
     def toXor[T](
       implicit fjs: Reads[T]
-    ): JsonValidationError Xor T = {
+    ): ValidationError Xor T = {
       jsLookupResult.toEither match {
-        case Left(ve: JsonValidationError) => Xor.left(ve)
+        case Left(ve: ValidationError) => Xor.left(ve)
         case Right(value: JsValue) =>
           value.asOpt[T] match {
-            case Some(t) => Xor.right[JsonValidationError, T](t)
-            case None => Xor.left[JsonValidationError, T](
-              JsonValidationError(s"a value exists by name but unable to convert to T"))
+            case Some(t) => Xor.right[ValidationError, T](t)
+            case None => Xor.left[ValidationError, T](
+              ValidationError(s"a value exists by name but unable to convert to T"))
           }
       }
     }

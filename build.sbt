@@ -51,17 +51,14 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "3.8.6" % "test",
   "org.specs2" %% "specs2-junit" % "3.8.6" % "test",
   "junit" % "junit" % "4.12" % "test",
-  "com.typesafe.play" %% "play-json" % "2.6.0-M1",
   "org.postgresql" % "postgresql" % "9.4.1212",
   "com.typesafe.slick" %% "slick" % "3.2.0-SNAPSHOT-local",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-SNAPSHOT-local",
-  "com.github.tminglei" %% "slick-pg" % "0.15.0-M3",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-M3",
+  "com.github.tminglei" %% "slick-pg" % "0.15.0-M3-SNAPSHOT-local",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-M3-SNAPSHOT-local",
   "com.typesafe.play" %% "play" % "2.5.12",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
-
-excludeDependencies += "com.typesafe.play" % "play-json_2.11:2.5.12"
 
 scalacOptions ++= Seq("-Yrangepos")
 
