@@ -54,8 +54,8 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.4.1212",
   "com.typesafe.slick" %% "slick" % "3.2.0-SNAPSHOT-local",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-SNAPSHOT-local",
-  "com.github.tminglei" %% "slick-pg" % "0.15.0-M3-SNAPSHOT-local",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-M3-SNAPSHOT-local",
+  "com.github.tminglei" %% "slick-pg" % "0.15.0-M4-SNAPSHOT-local",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-M4-SNAPSHOT-local",
   "com.typesafe.play" %% "play" % "2.5.12",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
