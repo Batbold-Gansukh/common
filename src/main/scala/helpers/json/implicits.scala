@@ -13,17 +13,17 @@ import play.api.libs.json.{JsError, JsSuccess, Reads, _}
   */
 object implicits {
 
-  val dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-
-  implicit val jodaDateReads: Reads[DateTime] = Reads[DateTime](js =>
-    js.validate[String].map[DateTime](dtString =>
-      DateTime.parse(dtString, DateTimeFormat.forPattern(dateFormat))
-    )
-  )
-
-  implicit val jodaDateWrites: Writes[DateTime] = new Writes[DateTime] {
-    def writes(d: DateTime): JsValue = JsString(d.toString())
-  }
+  //  val dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
+  //
+  //  implicit val jodaDateReads: Reads[DateTime] = Reads[DateTime](js =>
+  //    js.validate[String].map[DateTime](dtString =>
+  //      DateTime.parse(dtString, DateTimeFormat.forPattern(dateFormat))
+  //    )
+  //  )
+  //
+  //  implicit val jodaDateWrites: Writes[DateTime] = new Writes[DateTime] {
+  //    def writes(d: DateTime): JsValue = JsString(d.toString())
+  //  }
 
   implicit val sqlTimestampLongFormat = new Format[Timestamp] {
 
