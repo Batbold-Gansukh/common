@@ -46,14 +46,14 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "2.2.1",
+  "io.monix" %% "monix" % "2.2.2",
   "org.typelevel" %% "cats" % "0.7.2" withSources(),
-  "org.specs2" %% "specs2-core" % "3.8.6" % "test",
-  "org.specs2" %% "specs2-junit" % "3.8.6" % "test",
+  "org.specs2" %% "specs2-core" % "3.8.8" % "test",
+  "org.specs2" %% "specs2-junit" % "3.8.8" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "9.4.1212",
-  "com.typesafe.slick" %% "slick" % "3.2.0-SNAPSHOT-local",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-SNAPSHOT-local",
+  "com.typesafe.slick" %% "slick" % "3.2.0",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0",
   "com.github.tminglei" %% "slick-pg" % "0.15.0-M4-SNAPSHOT-local",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-M4-SNAPSHOT-local",
   "com.typesafe.play" %% "play" % "2.5.12",
