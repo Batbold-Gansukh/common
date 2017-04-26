@@ -1,7 +1,6 @@
 package helpers.utiltry
 
-import cats.data.Xor
-
+import cats.syntax.either._
 import scala.util.Try
 
 /**
@@ -10,7 +9,7 @@ import scala.util.Try
 object implicits {
 
   implicit class TryInstance[T](tr: Try[T]) {
-    def toXor: Throwable Xor T = Xor.fromTry(tr)
+    def toEither: Throwable Either T = Either.fromTry(tr)
   }
 
 }

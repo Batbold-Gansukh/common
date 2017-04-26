@@ -1,11 +1,10 @@
-import cats.data.Xor
 import monix.eval.Task
 import org.specs2.mutable._
 
 import scala.concurrent.Await
 import monix.execution.Scheduler.Implicits._
 import helpers.common.pp
-import monix.execution.Scheduler
+//import monix.execution.Scheduler
 import org.slf4j.LoggerFactory
 import play.api.mvc.Result
 
@@ -20,7 +19,7 @@ class TaskImplicitsSpec extends Specification {
     {
       import play.api.mvc.Results._
       import helpers.task.implicits.TaskToResultPlayLogger
-      implicit val sch = Scheduler
+//      implicit val sch = Scheduler
       implicit val implicitLogger = play.api.Logger
 
       "task to result when succeed" in {
@@ -61,7 +60,7 @@ class TaskImplicitsSpec extends Specification {
     {
       import play.api.mvc.Results._
       import helpers.task.implicits.TaskToResultScalaLogging
-      implicit val sch = Scheduler
+//      implicit val sch = Scheduler
       implicit val implicitLogger = com.typesafe.scalalogging.Logger(LoggerFactory.getLogger("Task"))
 
       "task to result when succeed" in {
@@ -99,29 +98,29 @@ class TaskImplicitsSpec extends Specification {
       }
     }
 
-    "xor when throw" in {
-      import helpers.task.implicits.TaskToXor
+    "either when throw" in {
+      import helpers.task.implicits.TaskToEither
       val shouldThrow = Task {
         if (true) throw new Throwable("from Task")
         else 1
       }
       Await.result(shouldThrow.runAsync, 3.seconds) must throwA(new Throwable("from Task"))
-      val res = Await.result(shouldThrow.xor.runAsync, 3.seconds)
+      val res = Await.result(shouldThrow.either.runAsync, 3.seconds)
       res.isLeft mustEqual true
     }
-    "xor when succeed" in {
-      import helpers.task.implicits.TaskToXor
+    "either when succeed" in {
+      import helpers.task.implicits.TaskToEither
       val shouldSucceed = Task {
         if (false) throw new Throwable("from task")
         else 1
       }
       Await.result(shouldSucceed.runAsync, 3.seconds) must not throwA new Throwable("from task")
-      val res = Await.result(shouldSucceed.xor.runAsync, 3.seconds)
+      val res = Await.result(shouldSucceed.either.runAsync, 3.seconds)
       res.isRight mustEqual true
-      res mustEqual Xor.Right(1)
+      res must beRight(1)
     }
     "short circuit" in {
-      import helpers.task.implicits.TaskToXor
+      import helpers.task.implicits.TaskToEither
       var state = 0
       val t1 = Task {
         state += 1
@@ -144,7 +143,7 @@ class TaskImplicitsSpec extends Specification {
       } yield r1 + r2 + r3
 
       Await.result(task.runAsync, 4.seconds) must throwA[Throwable]
-      val res = Await.result(task.xor.runAsync, 5.seconds)
+      val res = Await.result(task.either.runAsync, 5.seconds)
       res.isLeft mustEqual true
     }
   }

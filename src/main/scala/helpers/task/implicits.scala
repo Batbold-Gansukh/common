@@ -1,6 +1,6 @@
 package helpers.task
 
-import cats.data.Xor
+import cats.syntax.either._
 import monix.eval.Task
 import monix.execution.{CancelableFuture, Scheduler}
 import play.api.mvc.Result
@@ -50,39 +50,39 @@ object implicits {
       }
   }
 
-  implicit class TaskToXor[T](task: Task[T]) {
-    def xor: Task[Xor[Throwable, T]] = task.materialize.map(cats.data.Xor.fromTry)
+  implicit class TaskToEither[T](task: Task[T]) {
+    def either: Task[Either[Throwable, T]] = task.materialize.map(Either.fromTry)
   }
 
-  implicit class LeftThrowableXorToTask[L <: Throwable, R](xor: Xor[L, R]) {
-    def task: Task[R] = xor match {
-      case Xor.Left(l) ⇒ Task.raiseError(l)
-      case Xor.Right(r) ⇒ Task(r)
+  implicit class LeftThrowableEitherToTask[L <: Throwable, R](either: Either[L, R]) {
+    def task: Task[R] = either match {
+      case Left(l) ⇒ Task.raiseError(l)
+      case Right(r) ⇒ Task(r)
     }
   }
 
-  implicit class LeftStringXorToTask[R](xor: Xor[String, R]) {
-    def task: Task[R] = xor match {
-      case Xor.Left(str) ⇒ Task.raiseError(new Throwable(str))
-      case Xor.Right(r) ⇒ Task(r)
+  implicit class LeftStringEitherToTask[R](either: Either[String, R]) {
+    def task: Task[R] = either match {
+      case Left(str) ⇒ Task.raiseError(new Throwable(str))
+      case Right(r) ⇒ Task(r)
     }
   }
 
-  implicit class RightAnyXorToTask[R](right: Xor.Right[R]) {
+  implicit class RightAnyEitherToTask[R](right: Right[Any, R]) {
     def task: Task[R] = right match {
-      case Xor.Right(r) ⇒ Task(r)
+      case Right(r) ⇒ Task(r)
     }
   }
 
-  implicit class LeftStringOnlyXorToTask(left: Xor.Left[String]) {
+  implicit class LeftStringOnlyEitherToTask(left: Left[String, Any]) {
     def task: Task[Unit] = left match {
-      case Xor.Left(str) ⇒ Task.raiseError(new Throwable(str))
+      case Left(str) ⇒ Task.raiseError(new Throwable(str))
     }
   }
 
-  implicit class LeftThrowableOnlyXorToTask(left: Xor.Left[Throwable]) {
+  implicit class LeftThrowableOnlyEitherToTask(left: Left[Throwable, Any]) {
     def task: Task[Nothing] = left match {
-      case Xor.Left(throwable) ⇒ Task.raiseError(throwable)
+      case Left(throwable) ⇒ Task.raiseError(throwable)
     }
   }
 

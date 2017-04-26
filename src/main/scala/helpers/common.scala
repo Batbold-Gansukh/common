@@ -5,7 +5,6 @@ import java.util.Base64
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-import cats.data.Xor
 import play.api.libs.json._
 
 /**
@@ -15,30 +14,30 @@ object common {
 
   def test = "From common.Utils"
 
-  def parseInt(string: String): Throwable Xor Int = {
+  def parseInt(string: String): Throwable Either Int = {
     try {
-      Xor.right(string.toInt)
+      Right(string.toInt)
     } catch {
       case e: Exception ⇒
-        Xor.left(e.getCause)
+        Left(e.getCause)
     }
   }
 
-  def parseLong(string: String): Throwable Xor Long = {
+  def parseLong(string: String): Throwable Either Long = {
     try {
-      Xor.right(string.toLong)
+      Right(string.toLong)
     } catch {
       case e: Exception ⇒
-        Xor.Left(e.getCause)
+        Left(e.getCause)
     }
   }
 
-  def decodeUrlToJson(string: String): Throwable Xor JsValue = {
+  def decodeUrlToJson(string: String): Throwable Either JsValue = {
     try {
-      Xor.right(Json.parse(Base64.getUrlDecoder.decode(string.getBytes("UTF-8"))))
+      Right(Json.parse(Base64.getUrlDecoder.decode(string.getBytes("UTF-8"))))
     } catch {
       case e: Exception ⇒
-        Xor.left(e.getCause)
+        Left(e.getCause)
     }
   }
 
@@ -52,11 +51,11 @@ object common {
 
   val unixDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 
-  def parseUnixDate(string: String): Throwable Xor java.sql.Timestamp = try {
-    Xor.right(new java.sql.Timestamp(unixDateFormat.parse(string).getTime))
+  def parseUnixDate(string: String): Throwable Either java.sql.Timestamp = try {
+    Right(new java.sql.Timestamp(unixDateFormat.parse(string).getTime))
   } catch {
     case e: Throwable ⇒
-      Xor.left(e.getCause)
+      Left(e.getCause)
   }
 
   def pp(toString: Any, color: String = Console.MAGENTA): Unit = {

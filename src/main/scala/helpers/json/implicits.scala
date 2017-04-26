@@ -2,11 +2,8 @@ package helpers.json
 
 import java.sql.Timestamp
 
-import cats.data.Xor
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import play.api.data.validation.ValidationError
-import play.api.libs.json.{JsError, JsSuccess, Reads, _}
+import play.api.libs.json.{JsError, JsSuccess, _}
 
 /**
   * Created by batbold on 6/24/16.
@@ -35,35 +32,35 @@ object implicits {
 
   }
 
-  implicit class JsValueToXor(jsLookupResult: JsLookupResult) {
-    def toXor[T](
-      implicit fjs: Reads[T]
-    ): ValidationError Xor T = {
-      jsLookupResult.toEither match {
-        case Left(ve: ValidationError) => Xor.left(ve)
-        case Right(value: JsValue) =>
-          value.asOpt[T] match {
-            case Some(t) => Xor.right[ValidationError, T](t)
-            case None => Xor.left[ValidationError, T](
-              ValidationError(s"a value exists by name but unable to convert to T"))
-          }
-      }
-    }
-  }
-
-  implicit class JsResultToXor[T](jsResult: JsResult[T]) {
-    def toXor: String Xor T = jsResult match {
-      case JsSuccess(t, _) ⇒ Xor.Right(t)
-      case jsError: JsError ⇒ Xor.Left(
+  //  implicit class JsValueToEither(jsLookupResult: JsLookupResult) {
+  //    def toEither[T](
+  //      implicit fjs: Reads[T]
+  //    ): JsonValidationError Either T = {
+  //      jsLookupResult.toEither match {
+  //        case Left(ve: JsonValidationError) => Left(ve)
+  //        case Right(value: JsValue) =>
+  //          value.asOpt[T] match {
+  //            case Some(t) => Right[JsonValidationError, T](t)
+  //            case None => Left[JsonValidationError, T](
+  //              JsonValidationError(s"a value exists by name but unable to convert to T"))
+  //          }
+  //      }
+  //    }
+  //  }
+  //
+  implicit class JsResultToEither[T](jsResult: JsResult[T]) {
+    def toEither: String Either T = jsResult match {
+      case JsSuccess(t, _) ⇒ Right(t)
+      case jsError: JsError ⇒ Left(
         jsError.errors.map(x ⇒ x._2.map(_.message).mkString("\n")).mkString("\n")
       )
     }
   }
 
-  implicit class JsResultToXorWithError[T](jsResult: JsResult[T]) {
-    def toXorWithError[E](error: E): E Xor T = jsResult match {
-      case JsSuccess(t, _) ⇒ Xor.Right(t)
-      case _: JsError ⇒ Xor.Left(error)
+  implicit class JsResultToEitherWithError[T](jsResult: JsResult[T]) {
+    def toEitherWithError[E](error: E): E Either T = jsResult match {
+      case JsSuccess(t, _) ⇒ Right(t)
+      case _: JsError ⇒ Left(error)
     }
   }
 

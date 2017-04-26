@@ -1,6 +1,6 @@
 import java.security.SecureRandom
 
-import cats.data.Xor
+import cats.syntax.either._
 import helpers.common._
 import monix.execution.Scheduler.Implicits._
 import org.specs2.mutable.Specification
@@ -23,10 +23,10 @@ class AbbreviationSpec extends Specification {
       Await.result(fxlt.map { xlt ⇒
         xlt.isLeft mustEqual true
         xlt match {
-          case Xor.Left(throwable) ⇒ throwable.getMessage mustEqual string
+          case Left(throwable) ⇒ throwable.getMessage mustEqual string
           case _ ⇒ failure
         }
-        xlt.isInstanceOf[Xor.Left[Throwable]] mustEqual true
+        xlt.isInstanceOf[Left[Throwable,_]] mustEqual true
       }, 2.seconds)
     }
 
@@ -35,7 +35,7 @@ class AbbreviationSpec extends Specification {
       val string = "string"
       val xlt = XLT(string)
       xlt.isLeft mustEqual true
-      xlt.isInstanceOf[Xor.Left[Throwable]] mustEqual true
+      xlt.isInstanceOf[Left[Throwable,_]] mustEqual true
       xlt.leftMap { throwable ⇒
         throwable.getMessage mustEqual string
       }
@@ -49,7 +49,7 @@ class AbbreviationSpec extends Specification {
       fxt.isCompleted mustEqual true
       Await.result(fxt.map { xt ⇒
         xt.isLeft mustEqual true
-        xt.isInstanceOf[Xor[Throwable, Unit]] mustEqual true
+        xt.isInstanceOf[Either[Throwable, Unit]] mustEqual true
       }, 2.seconds)
     }
 
@@ -58,7 +58,7 @@ class AbbreviationSpec extends Specification {
       val string = "string"
       val xt = XT[Unit](string)
       xt.isLeft mustEqual true
-      xt.isInstanceOf[Xor[Throwable, Unit]] mustEqual true
+      xt.isInstanceOf[Either[Throwable, Unit]] mustEqual true
     }
 
     "FXL" in {
@@ -68,7 +68,7 @@ class AbbreviationSpec extends Specification {
       fxl.isCompleted mustEqual true
       Await.result(fxl.map { xl ⇒
         xl.isLeft mustEqual true
-        xl.isInstanceOf[Xor.Left[Option[Int]]] mustEqual true
+        xl.isInstanceOf[Left[Option[Int],_]] mustEqual true
       }, 2.seconds)
     }
 
@@ -77,7 +77,7 @@ class AbbreviationSpec extends Specification {
       val value = Some(1)
       val xl = XL[Option[Int]](value)
       xl.isLeft mustEqual true
-      xl.isInstanceOf[Xor.Left[Option[Int]]] mustEqual true
+      xl.isInstanceOf[Left[Option[Int],_]] mustEqual true
     }
 
     "XR" in {
@@ -85,7 +85,7 @@ class AbbreviationSpec extends Specification {
       val value = Some(1)
       val xl = XR[Option[Int]](value)
       xl.isRight mustEqual true
-      xl.isInstanceOf[Xor.Right[Option[Int]]] mustEqual true
+      xl.isInstanceOf[Right[_,Option[Int]]] mustEqual true
     }
 
     "FX" in {
@@ -94,7 +94,7 @@ class AbbreviationSpec extends Specification {
       val fx = FX[Option[Int], Unit](value)
       Await.result(fx.map { x ⇒
         x.isLeft mustEqual true
-        x.isInstanceOf[Option[Int] Xor Unit] mustEqual true
+        x.isInstanceOf[Option[Int] Either Unit] mustEqual true
       }, 2.seconds)
     }
 
@@ -118,7 +118,7 @@ class AbbreviationSpec extends Specification {
       val value = Some(1)
       val x = X[Option[Int], Unit](value)
       x.isLeft mustEqual true
-      x.isInstanceOf[Option[Int] Xor Unit] mustEqual true
+      x.isInstanceOf[Option[Int] Either Unit] mustEqual true
     }
 
     "TXLT" in {
@@ -133,7 +133,7 @@ class AbbreviationSpec extends Specification {
       val txt = TXT[Int]("string")
       val value = Await.result(txt.runAsync, 2.seconds)
       value match {
-        case Xor.Left(throwable) ⇒ throwable.getMessage mustEqual "string"
+        case Left(throwable) ⇒ throwable.getMessage mustEqual "string"
         case _ ⇒ failure
       }
       value.isLeft mustEqual true
@@ -144,7 +144,7 @@ class AbbreviationSpec extends Specification {
       val txl = TXL(1)
       val value = Await.result(txl.runAsync, 2.seconds)
       value.isLeft mustEqual true
-      value mustEqual Xor.Left(1)
+      value must beLeft(1)
     }
 
     "TX" in {
@@ -152,8 +152,8 @@ class AbbreviationSpec extends Specification {
       val tx = TX[Int, String](1)
       val value = Await.result(tx.runAsync, 2.seconds)
       value.isLeft mustEqual true
-      value.isInstanceOf[Xor[Int, String]] mustEqual true
-      value mustEqual Xor.Left(1)
+      value.isInstanceOf[Either[Int, String]] mustEqual true
+      value must beLeft(1)
     }
 
     "FT" in {
