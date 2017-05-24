@@ -4,6 +4,7 @@ import java.sql.Timestamp
 
 import org.joda.time.DateTime
 import play.api.libs.json.{JsError, JsSuccess, _}
+import play.api.libs.json.JodaReads._
 
 /**
   * Created by batbold on 6/24/16.

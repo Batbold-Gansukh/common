@@ -51,12 +51,13 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2-core" % "3.8.9" % "test",
   "org.specs2" %% "specs2-junit" % "3.8.9" % "test",
   "junit" % "junit" % "4.12" % "test",
-  "org.postgresql" % "postgresql" % "42.0.0",
+  "org.postgresql" % "postgresql" % "42.1.1",
   "com.typesafe.slick" %% "slick" % "3.2.0",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0",
-  "com.github.tminglei" %% "slick-pg" % "0.15.0-RC",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0-RC",
-  "com.typesafe.play" %% "play" % "2.6.0-M5",
+  "com.github.tminglei" %% "slick-pg" % "0.15.0",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0",
+  "com.typesafe.play" %% "play" % "2.6.0-RC1",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.0-RC1",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
 
