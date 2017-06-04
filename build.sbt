@@ -56,8 +56,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0",
   "com.github.tminglei" %% "slick-pg" % "0.15.0",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.15.0",
-  "com.typesafe.play" %% "play" % "2.6.0-RC1",
-  "com.typesafe.play" %% "play-json-joda" % "2.6.0-RC1",
+  "com.typesafe.play" %% "play" % "2.6.0-RC2",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.0-RC2",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
 
