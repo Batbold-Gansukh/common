@@ -21,7 +21,7 @@ name := projectName
 moduleName := projectName
 organization := "bb"
 version := "0.0.0"
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 shellPrompt := modulePrompt
 
 //lazy val root = (project in file(".")).enablePlugins(PlayScala)
@@ -46,19 +46,19 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "2.3.0",
+  "io.monix" %% "monix" % "2.3.2",
   "org.typelevel" %% "cats" % "0.9.0" withSources(),
-  "org.specs2" %% "specs2-core" % "4.0.0" % "test",
-  "org.specs2" %% "specs2-junit" % "4.0.0" % "test",
+  "org.specs2" %% "specs2-core" % "4.0.2" % "test",
+  "org.specs2" %% "specs2-junit" % "4.0.2" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "42.1.4",
   "com.typesafe.slick" %% "slick" % "3.2.1",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
-  "com.github.tminglei" %% "slick-pg" % "0.15.3",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.3",
-  "com.typesafe.play" %% "play" % "2.6.6",
-  "com.typesafe.play" %% "play-json-joda" % "2.6.6",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
+  "com.github.tminglei" %% "slick-pg" % "0.15.4",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.4",
+  "com.typesafe.play" %% "play" % "2.6.7",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.7",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
