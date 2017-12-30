@@ -23,7 +23,7 @@ object implicits {
   //    def writes(d: DateTime): JsValue = JsString(d.toString())
   //  }
 
-  implicit val sqlTimestampLongFormat = new Format[Timestamp] {
+  implicit val sqlTimestampLongFormat: Format[Timestamp] = new Format[Timestamp] {
 
     override def reads(json: JsValue): JsResult[Timestamp] = Json.fromJson[DateTime](json).map { x ⇒
       new Timestamp(x.getMillis)

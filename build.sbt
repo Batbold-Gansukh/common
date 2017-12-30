@@ -47,7 +47,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "io.monix" %% "monix" % "2.3.2",
-  "org.typelevel" %% "cats" % "0.9.0" withSources(),
+  "org.typelevel" %% "cats-core" % "1.0.0" withSources(),
   "org.specs2" %% "specs2-core" % "4.0.2" % "test",
   "org.specs2" %% "specs2-junit" % "4.0.2" % "test",
   "junit" % "junit" % "4.12" % "test",
@@ -56,8 +56,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
   "com.github.tminglei" %% "slick-pg" % "0.15.4",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.15.4",
-  "com.typesafe.play" %% "play" % "2.6.7",
-  "com.typesafe.play" %% "play-json-joda" % "2.6.7",
+  "com.typesafe.play" %% "play" % "2.6.10",
+  "com.typesafe.play" %% "play-json-joda" % "2.6.8",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2"
 )
 
