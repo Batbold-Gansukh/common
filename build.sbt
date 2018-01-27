@@ -46,17 +46,17 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"))
 
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "2.3.2",
-  "org.typelevel" %% "cats-core" % "1.0.0" withSources(),
+  "io.monix" %% "monix" % "2.3.3",
+  "org.typelevel" %% "cats-core" % "1.0.1" withSources(),
   "org.specs2" %% "specs2-core" % "4.0.2" % "test",
   "org.specs2" %% "specs2-junit" % "4.0.2" % "test",
   "junit" % "junit" % "4.12" % "test",
-  "org.postgresql" % "postgresql" % "42.1.4",
+  "org.postgresql" % "postgresql" % "42.2.1",
   "com.typesafe.slick" %% "slick" % "3.2.1",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
-  "com.github.tminglei" %% "slick-pg" % "0.15.4",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.4",
-  "com.typesafe.play" %% "play" % "2.6.10",
+  "com.github.tminglei" %% "slick-pg" % "0.15.6",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.15.6",
+  "com.typesafe.play" %% "play" % "2.6.11",
   "com.typesafe.play" %% "play-json-joda" % "2.6.8",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2"
 )
