@@ -48,17 +48,17 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "io.monix" %% "monix" % "2.3.3",
   "org.typelevel" %% "cats-core" % "1.1.0" withSources(),
-  "org.specs2" %% "specs2-core" % "4.0.3" % "test",
-  "org.specs2" %% "specs2-junit" % "4.0.3" % "test",
+  "org.specs2" %% "specs2-core" % "4.1.0" % "test",
+  "org.specs2" %% "specs2-junit" % "4.1.0" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "42.2.2",
-  "com.typesafe.slick" %% "slick" % "3.2.2",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.2",
-  "com.github.tminglei" %% "slick-pg" % "0.16.0",
-  "com.github.tminglei" %% "slick-pg_play-json" % "0.16.0",
-  "com.typesafe.play" %% "play" % "2.6.12",
+  "com.typesafe.slick" %% "slick" % "3.2.3",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",
+  "com.github.tminglei" %% "slick-pg" % "0.16.1",
+  "com.github.tminglei" %% "slick-pg_play-json" % "0.16.1",
+  "com.typesafe.play" %% "play" % "2.6.13",
   "com.typesafe.play" %% "play-json-joda" % "2.6.9",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.8.0"
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0"
 )
 
 scalacOptions ++= Seq("-Yrangepos")
