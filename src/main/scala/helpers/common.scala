@@ -32,6 +32,15 @@ object common {
     }
   }
 
+  def parseFloat(string: String): Throwable Either Float = {
+    try {
+      Right(string.toFloat)
+    } catch {
+      case e: Exception ⇒
+        Left(e.getCause)
+    }
+  }
+
   def decodeUrlToJson(string: String): Throwable Either JsValue = {
     try {
       Right(Json.parse(Base64.getUrlDecoder.decode(string.getBytes("UTF-8"))))
