@@ -21,7 +21,7 @@ name := projectName
 moduleName := projectName
 organization := "bb"
 version := "0.0.0"
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.7"
 shellPrompt := modulePrompt
 
 //lazy val root = (project in file(".")).enablePlugins(PlayScala)
@@ -48,15 +48,15 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "io.monix" %% "monix" % "2.3.3",
   "org.typelevel" %% "cats-core" % "1.4.0" withSources(),
-  "org.specs2" %% "specs2-core" % "4.3.4" % "test",
-  "org.specs2" %% "specs2-junit" % "4.3.4" % "test",
+  "org.specs2" %% "specs2-core" % "4.3.5" % "test",
+  "org.specs2" %% "specs2-junit" % "4.3.5" % "test",
   "junit" % "junit" % "4.12" % "test",
   "org.postgresql" % "postgresql" % "42.2.5",
   "com.typesafe.slick" %% "slick" % "3.2.3",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",
   "com.github.tminglei" %% "slick-pg" % "0.16.3",
   "com.github.tminglei" %% "slick-pg_play-json" % "0.16.3",
-  "com.typesafe.play" %% "play" % "2.6.19",
+  "com.typesafe.play" %% "play" % "2.6.20",
   "com.typesafe.play" %% "play-json-joda" % "2.6.10",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0"
 )
